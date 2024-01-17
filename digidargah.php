@@ -1,14 +1,14 @@
 <?php
 
 /*
-* Plugin Name: افزونه دیجی درگاه برای ایزی دی
-* Description: افزونه درگاه پرداخت رمز ارزی <a href="https://digidargah.com"> دیجی درگاه </a> برای ووکامرس.
+* Plugin Name: افزونه دیجی درگاه برای ایزی دیجیتال دانلود
+* Description: افزونه درگاه پرداخت رمز ارزی <a href="https://digidargah.com"> دیجی درگاه </a> برای ایزی دیجیتال دانلود.
 * Version: 1.1
 * developer: Hanif Zekri Astaneh
 * Author: DigiDargah.com
 * Author URI: https://digidargah.com
 * Author Email: info@digidargah.com
-* Text Domain: DigiDargah_woo_payment_plugin
+* Text Domain: DigiDargah_edd_payment_plugin
 * Tested version up to: 6.1
 * copyright (C) 2020 DigiDargah
 * license http://www.gnu.org/licenses/gpl-3.0.html GPLv3 or later
