@@ -57,6 +57,7 @@ After submitting your website on DigiDargah.com and getting an API key, to insta
    - Configure the following settings:
      - **Title**: The title displayed to customers during checkout.
      - **API Key**: Enter your DigiDargah API key.
+     - **Pay Currency**: Specify the cryptocurrencies customers can use for payments.
 
 3. **Save Changes**: Click "Save changes" to apply your settings.
 
