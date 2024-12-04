@@ -81,7 +81,7 @@ class EDD_DigiDargah_Gateway {
 				'callback' => $callback,
 			);
 			
-			$ch = curl_init('https://digidargah.com/action/ws/request_create');
+			$ch = curl_init('https://digidargah.com/action/ws/request/create');
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -142,7 +142,7 @@ class EDD_DigiDargah_Gateway {
 			'request_id' => $request_id,
 		);
 		
-		$ch = curl_init('https://digidargah.com/action/ws/request_status');
+		$ch = curl_init('https://digidargah.com/action/ws/request/status');
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
