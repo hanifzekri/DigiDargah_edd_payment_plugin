@@ -81,13 +81,22 @@ class EDD_DigiDargah_Gateway {
 				'callback' => $callback,
 			);
 			
-			$ch = curl_init('https://digidargah.com/action/ws/request/create');
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$url = 'https://digidargah.com/action/ws/request/create';
+			$curl = curl_init();
+			curl_setopt_array($curl, [
+				CURLOPT_URL => $url,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_MAXREDIRS => 5,
+				CURLOPT_TIMEOUT => 60,
+				CURLOPT_USERAGENT => $_SERVER["HTTP_USER_AGENT"],
+				CURLOPT_CUSTOMREQUEST => "POST",
+				CURLOPT_POSTFIELDS => json_encode($params),
+			]);
+			$response = curl_exec($curl);
+			curl_close($curl);
 
-			$response = curl_exec($ch);
-			$err = curl_error($ch);
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
 			
 			if ($err) {
 				edd_insert_payment_note($payment, 'خطا در اتصال به درگاه : ' . $err);
@@ -98,7 +107,7 @@ class EDD_DigiDargah_Gateway {
 			}
 
 			$result = json_decode($response);
-			curl_close($ch);
+			curl_close($curl);
 
 			if ($result->status == 'success') {
 				edd_insert_payment_note($payment, 'کد درخواست دیجی درگاه : ' . $result->request_id);
@@ -142,12 +151,19 @@ class EDD_DigiDargah_Gateway {
 			'request_id' => $request_id,
 		);
 		
-		$ch = curl_init('https://digidargah.com/action/ws/request/status');
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($ch);
-		curl_close($ch);
+		$url = 'https://digidargah.com/action/ws/request/status';
+		$curl = curl_init();
+		curl_setopt_array($curl, [
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_MAXREDIRS => 5,
+			CURLOPT_TIMEOUT => 60,
+			CURLOPT_USERAGENT => $_SERVER["HTTP_USER_AGENT"],
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => json_encode($params),
+		]);
+		$response = curl_exec($curl);
+		curl_close($curl);
 		$result = json_decode($response);
 
 		edd_empty_cart();
@@ -178,7 +194,7 @@ class EDD_DigiDargah_Gateway {
 				'name' => 'کلید API',
 				'type' => 'text',
 				'size' => 'regular',
-				'desc' => '<small> کلید API دیجی درگاه را در فیلد بالا وارد نمایید تا درگاه پرداخت فعال شود. این کلید را می توانید پس از ثبت وب سایت تان در دیجی درگاه، دریافت نمایید. </small>'
+				'desc' => '<small> کلید API دیجی درگاه را در فیلد بالا وارد نمایید تا درگاه پرداخت فعال شود. این کلید را می توانید پس از ثبت وب سایت تان در <a href="https://digidargah.com" target="_blank"> دیجی درگاه </a>، دریافت نمایید. </small>'
 			),
 			$this->keyname . '_pay_currency' => array(
 				'id' => $this->keyname . '_pay_currency',
