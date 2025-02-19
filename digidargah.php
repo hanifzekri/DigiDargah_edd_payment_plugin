@@ -92,8 +92,6 @@ class EDD_DigiDargah_Gateway {
 				CURLOPT_CUSTOMREQUEST => "POST",
 				CURLOPT_POSTFIELDS => json_encode($params),
 			]);
-			$response = curl_exec($curl);
-			curl_close($curl);
 
 			$response = curl_exec($curl);
 			$err = curl_error($curl);
