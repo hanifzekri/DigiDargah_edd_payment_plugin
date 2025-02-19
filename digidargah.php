@@ -94,18 +94,9 @@ class EDD_DigiDargah_Gateway {
 			]);
 
 			$response = curl_exec($curl);
-			$err = curl_error($curl);
-			
-			if ($err) {
-				edd_insert_payment_note($payment, 'خطا در اتصال به درگاه : ' . $err);
-				edd_update_payment_status($payment, 'failed');
-				edd_set_error('digidargah_connect_error', 'در اتصال به درگاه مشکلی بوجود آمده است.');
-				edd_send_back_to_checkout();
-				return false;
-			}
-
-			$result = json_decode($response);
 			curl_close($curl);
+			
+			$result = json_decode($response);
 
 			if ($result->status == 'success') {
 				edd_insert_payment_note($payment, 'کد درخواست دیجی درگاه : ' . $result->request_id);
@@ -164,9 +155,8 @@ class EDD_DigiDargah_Gateway {
 		curl_close($curl);
 		$result = json_decode($response);
 
-		edd_empty_cart();
-
 		if ($result->status == 'success') {
+			edd_empty_cart();
 			edd_update_payment_status($payment->ID, 'publish');
 			edd_send_to_success_page();
 			
